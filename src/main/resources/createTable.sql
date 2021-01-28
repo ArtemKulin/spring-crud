@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS spring_crud.users (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(45) NULL,
+lastname VARCHAR(45) NULL,
+age INT NULL,
+gender VARCHAR(45) NULL,
+PRIMARY KEY (id)
+);
