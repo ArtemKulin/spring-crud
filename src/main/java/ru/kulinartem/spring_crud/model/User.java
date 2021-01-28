@@ -20,12 +20,12 @@ public class User {
     private int age;
 
     @Column (name = "gender")
-    private char gender;
+    private String gender;
 
     public User() {
     }
 
-    public User(String name, String lastName, int age, char gender) {
+    public User(String name, String lastName, int age, String gender) {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -64,11 +64,11 @@ public class User {
         this.age = age;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
