@@ -11,7 +11,9 @@
     </div>
     <br>
 
-    <button><a href="/new">Create new User</a></button>
+    <form th:method="GET" th:action="@{/new}">
+        <input type="submit" value="Edit User">
+    </form>
 
 
 
