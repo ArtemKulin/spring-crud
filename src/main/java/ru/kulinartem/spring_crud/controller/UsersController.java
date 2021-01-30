@@ -5,66 +5,64 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kulinartem.spring_crud.dao.UserDAO;
 import ru.kulinartem.spring_crud.model.User;
+import ru.kulinartem.spring_crud.service.UserDaoImpl;
 
 @Controller
 public class UsersController {
 
-    private final UserDAO userDAO;
+    private final UserDaoImpl userDaoImpl;
 
     @Autowired
-    public UsersController(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UsersController(UserDaoImpl userDaoImpl) {
+        this.userDaoImpl = userDaoImpl;
     }
 
-    @GetMapping(value = "/")
     @Transactional
+    @GetMapping(value = "/")
     public String printAllUsers(Model model) {
-        model.addAttribute("users", userDAO.getAllItems());
+        model.addAttribute("users", userDaoImpl.getAllItems());
         return "users";
     }
 
-    @GetMapping("/{id}")
     @Transactional
+    @GetMapping("/{id}")
     public String printUserById(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userDAO.getItemById(id));
+        model.addAttribute("user", userDaoImpl.getItemById(id));
         return "user";
     }
 
     @GetMapping("/new")
-    @Transactional
-    public String addNewUser(@ModelAttribute("newUser") User user) {
+    public String showNewUser(@ModelAttribute("newUser") User user) {
         return "new";
 
     }
 
-    @PostMapping
     @Transactional
+    @PostMapping
     public String createUser(@ModelAttribute("newUser") User user) {
-        userDAO.saveItem(user);
+        userDaoImpl.saveItem(user);
         return "redirect:/";
     }
 
-    @GetMapping("/{id}/edit")
     @Transactional
+    @GetMapping("/{id}/edit")
     public String editUser(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userDAO.getItemById(id));
+        model.addAttribute("user", userDaoImpl.getItemById(id));
         return "edit";
     }
 
+    @Transactional
     @PatchMapping("/{id}")
-    @Transactional
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id) {
-        userDAO.updateItem(user, id);
+        userDaoImpl.updateItem(user, id);
         return "redirect:/";
     }
 
-    @DeleteMapping("/{id}")
     @Transactional
+    @DeleteMapping("/{id}")
     public String deleteUser(@ModelAttribute("user") User user) {
-       userDAO.deleteItem(user);
+       userDaoImpl.deleteItem(user);
         return "redirect:/";
     }
-
 }
